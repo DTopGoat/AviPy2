@@ -1,0 +1,8 @@
+# Developer files
+.mypy_cache
+venv
+
+# Byte-compiled
+__pycache__/
+tests/__pycache__/
+avpy/__pycache__/
