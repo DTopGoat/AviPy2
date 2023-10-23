@@ -4,7 +4,11 @@
 AvPy is a Python package specifically developed for the purposes of the Flight Operations Engineering (FOE) course at the HvA. For the purposes of the FOE assignments, many pieces of code can be shared between projects. That is what motivated the creation of a Python package, that can be used as a common repository for code snippets useful for the projects.
 
 ## Table of Contents
-
+[Features](#features)
+[Where to get it](#where-to-get-it)
+[Installation](#installation)
+[Documentation](#documentation)
+[License](#license)
 
 ## Features
 The AvPy package includes many classes and functions useful for FOE projects. These are the main features of AvPy:
