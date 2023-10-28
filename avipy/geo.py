@@ -278,7 +278,6 @@ class Coord:
         lat1, lon1 = self.get_latlon("rad")
         bearing = math.radians(bearing_deg)
         angular_dist = dist / const.Earth.radius
-        print(dist, const.Earth.radius, angular_dist)
 
         lat2 = math.asin(
             math.sin(lat1) * math.cos(angular_dist) + math.cos(lat1) * math.sin(angular_dist) * math.cos(bearing)
