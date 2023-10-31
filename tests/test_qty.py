@@ -1,3 +1,1 @@
-from .context import qty
-
-print(qty.Distance(500))
+from context import qty
