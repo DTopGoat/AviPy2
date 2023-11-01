@@ -190,7 +190,7 @@ class Distance(Unit):
 
     @property
     def inch(self):
-        return self.inch / self.__inch_factor
+        return self.base / self.__inch_factor
 
     def __str__(self):
         return f"{self.base:.2f} meters"
