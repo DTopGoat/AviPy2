@@ -659,8 +659,8 @@ class Force(Unit):
 
     __kn_factor = 1000
     __mn_factor = 1000000
-    __kg_factor = 9.80665
-    __gram_factor = 0.00980665
+    __kg_factor = 9.81
+    __gram_factor = 0.00981
     __lbf_factor = 4.4482216153
 
     def __init__(self, base):
