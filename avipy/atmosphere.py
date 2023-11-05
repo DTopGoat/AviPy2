@@ -56,14 +56,18 @@ def get_pressure(temp: qty.Temperature) -> qty.Pressure:
     return qty.Pressure(pressure_at_temp)
 
 
-def get_density(height: qty.Distance) -> float:
+def get_density(height: qty.Distance = None, temp: qty.Temperature = None, pressure: qty.Pressure = None) -> float:
     """
-    Returns the pressure at a given height.
+    Returns the pressure at a given height, or at a given temperature and pressure.
 
     Parameters
     ----------
     height: Distance
         Distance from the qty module, representing a height in meters.
+    temp: Temperature
+        Temperature from the qty module, representing a Temperature in Kelvin.
+    pressure: Pressure
+        Pressure from the qty module, representing a pressure in Pascal.
 
     Returns
     -------
@@ -77,8 +81,14 @@ def get_density(height: qty.Distance) -> float:
     0.379...
     """
 
-    temp_at_height = get_temp(height)
-    pressure_at_height = get_pressure(temp_at_height)
-    density_at_height = pressure_at_height / (const.Atm.r_air * temp_at_height)
+    if height:
+        temp_at_height = get_temp(height)
+        pressure_at_height = get_pressure(temp_at_height)
+        density_at_height = pressure_at_height / (const.Atm.r_air * temp_at_height)
 
-    return density_at_height
+        return density_at_height
+    elif temp and pressure:
+        density = pressure / (const.Atm.r_air * temp)
+        return density
+
+    return NotImplementedError("Only height or temperature and pressure input are supported.")
