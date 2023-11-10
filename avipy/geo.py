@@ -19,6 +19,18 @@ class Coord:
     def __str__(self):
         return f"Latitude: {self.__lat:.2f}°, Longitude: {self.__lon:.2f}°"
 
+    def __eq__(self, x):
+        if isinstance(x, Coord):
+            return self.get_latlon() == x.get_latlon()
+        else:
+            return False
+
+    def __ne__(self, x):
+        if isinstance(x, Coord):
+            return self.get_latlon() != x.get_latlon()
+        else:
+            return True
+
     def set_lat(self, lat: float, unit: Literal["deg", "rad"] = "deg") -> "Coord":
         """
         Sets the latitude of the coordinate
