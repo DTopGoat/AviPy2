@@ -1,5 +1,6 @@
 # Developer files
 .mypy_cache
+.pytest_cache
 venv
 
 # Byte-compiled
