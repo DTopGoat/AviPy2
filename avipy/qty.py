@@ -9,6 +9,9 @@ class Unit:
     def __init__(self, base):
         self.base = base
 
+    def __hash__(self):
+        return hash(self.base)
+
     def __lt__(self, x):
         if isinstance(x, Unit):
             return self.base < x.base
