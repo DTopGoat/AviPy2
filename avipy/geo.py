@@ -1,5 +1,5 @@
 import math
-from typing import Literal
+from typing import Literal, Optional
 
 from . import constants as const
 from . import qty
@@ -65,7 +65,7 @@ class Coord:
 
         return self
 
-    def get_lat(self, unit: Literal["deg", "rad"] = "deg") -> float:
+    def get_lat(self, unit: Literal["deg", "rad"] = "deg") -> Optional[float]:
         """
         Returns the latitude of the coordinate.
 
@@ -89,12 +89,15 @@ class Coord:
         if unit.lower() not in ["deg", "rad"]:
             raise TypeError("Unit not of supported type")
 
+        if self.__lat == None:
+            return None
+
         if unit == "rad":
             return math.radians(self.__lat)
 
         return self.__lat
 
-    def get_lon(self, unit: Literal["deg", "rad"] = "deg") -> float:
+    def get_lon(self, unit: Literal["deg", "rad"] = "deg") -> Optional[float]:
         """
         Returns the longitude of the coordinate.
 
@@ -117,6 +120,9 @@ class Coord:
         """
         if unit.lower() not in ["deg", "rad"]:
             raise TypeError("Unit not of supported type")
+
+        if self.__lon == None:
+            return None
 
         if unit == "rad":
             return math.radians(self.__lon)
@@ -146,6 +152,9 @@ class Coord:
         """
         if unit.lower() not in ["deg", "rad"]:
             raise TypeError("Unit not of supported type")
+
+        if self.__lat == None or self.__lon == None:
+            raise ValueError("Latitude and Longitude must not be None")
 
         if unit == "rad":
             return (math.radians(self.__lat), math.radians(self.__lon))
@@ -182,13 +191,16 @@ class Coord:
         if tolerance < 0.1 or tolerance > 10:
             raise ValueError("Tolerance is not in range [0, 10]")
 
+        if self.__lat == None or self.__lon == None:
+            raise ValueError("lat and lon must not be None")
+
         if (lat - tolerance < self.__lat < lat + tolerance) and (lon - tolerance < self.__lon < lon + tolerance):
             return True
         return False
 
     def get_distance_bearing(
         self, coord: "Coord", method: Literal["haversine", "vincenty"] = "haversine"
-    ) -> qty.Distance:
+    ) -> tuple[qty.Distance, float]:
         """
         Return meters of distance and bearing in degrees to the given point.
 
@@ -273,7 +285,7 @@ class Coord:
 
         if method == "vincenty":
             lat1, lon1 = self.get_latlon("deg")
-            coord = self._vincenty_direct((lat1, lon1), dist, bearing_deg)
+            coord = self._vincenty_direct((lat1, lon1), dist.base, bearing_deg)
             return coord
         elif method == "haversine":
             lat1, lon1 = self.get_latlon("rad")
