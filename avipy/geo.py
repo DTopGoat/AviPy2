@@ -4,7 +4,6 @@ from typing import Literal
 from . import constants as const
 from . import qty
 
-
 class Coord:
     __lat = None
     __lon = None
@@ -12,6 +11,11 @@ class Coord:
     def __init__(self, lat: float, lon: float, unit: Literal["deg", "rad"] = "deg"):
         self.set_lat(lat, unit)
         self.set_lon(lon, unit)
+
+    def __hash__(self):
+        if not self.__lat or not self.__lon:
+            return hash(0)
+        return hash(self.__lat + self.__lon)
 
     def __repr__(self):
         return f"lat: {self.__lat}, lon: {self.__lon}"
