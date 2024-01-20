@@ -1,6 +1,6 @@
 [project]
 name = "AviPy"
-version = "0.3.1"
+version = "0.3.2"
 authors = [
   { name="Paolo Stet", email="paolostet@proton.me"},
 ]
